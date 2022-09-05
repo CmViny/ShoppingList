@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="main.css" rel="stylesheet">
+    <script src="https://unpkg.com/vue@3"></script>
+    <title>Shopping List App</title>
+</head>
+
+<body>
+
+    <div id="shopping-list">
+
+        <div class="header">
+            <h1>{{header || 'Welcome'}}</h1>
+
+            <p v-if="items.length === 0">Nice job! You've bought all your items!</p>
+
+            <button v-if="editing" @click="doEdit(false)" class="cancel">Cancel</button>
+            <button v-else @click="doEdit(true)" class="add-item">Add Item</button>
+        </div>
+
+        <div class="item-form">
+            <div class="add-item-form" v-if="editing">
+                <input @keyup.enter="saveItem" v-model="message" type="text" placeholder="Add an Item"/>
+
+                <label><input type="checkbox" v-model="ItemPriority" /> Priority<br></label>
+                <button @click="reset">Reset</button>
+                <button v-bind:disabled="message.length === 0" @click="saveItem">Save Item</button>
+            </div>
+        </div>
+
+        <div class="ul-container">
+            <ul>
+                <!-- <li v-for="item in reversedItems" :key="item.id" -->
+                <li v-for="item in items" :key="item.id" 
+                    @click="togglePurchased(item)"
+                    :class="{strikeout: item.purchased, priority: item.priority}" 
+                >{{item.label}}</li>
+            </ul>
+        </div>
+        
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        const shoppingList = Vue.createApp({
+            data() {
+                return {
+                    header: "Shopping List App",
+                    editing: false,
+                    message: "",
+                    ItemPriority: false,
+                    items : [
+                        // {id: 1, label:"First Item", purchased: true, priority: false},
+                        // {id: 2, label:"Second Item", purchased: true, priority: false},
+                        // {id: 3, label:"Third Item", purchased: false, priority:true}
+                    ]
+                }
+            },
+    // COMPUTED
+            computed: {
+                reversedItems() {
+                    return [...this.items].reverse() // Spread operator = copy of items
+                }
+            },
+    // METHODS
+            methods : {
+                saveItem() {
+                    if(this.message === "")
+                    return alert('Field empty')
+                    this.items.push({
+                        id: this.items.length +1,
+                        label: this.message,
+                        priority: this.ItemPriority
+                    })
+                    this.message=""
+                    this.ItemPriority= ""
+                },
+
+                doEdit(editing) {
+                    this.editing = editing
+                    this.message = ""
+                    this.ItemPriority= ""
+                },
+
+                togglePurchased(item) {
+                    item.purchased = !item.purchased
+                },
+
+                reset() {
+                    this.items = []
+                }
+            }
+        }).mount('#shopping-list')
+    </script>
+</body>
+</html>

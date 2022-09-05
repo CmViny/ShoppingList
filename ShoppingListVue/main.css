@@ -1,0 +1,83 @@
+/* GENERAL */
+
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body 
+{
+    background-color: antiquewhite;
+    flex-wrap: wrap;
+}
+
+#shopping-list 
+{
+    width: 100%;
+    height: 100%;
+}
+
+button
+{
+    margin-top: 5%;
+    padding: 5px;
+    border-radius: 5%;
+    background-color: white;
+    font-weight: bold;
+}
+
+button:hover 
+{
+    background-color: black;
+    color: antiquewhite;
+    padding: 6.5px;
+}
+
+/* HEADER */
+
+.header 
+{
+    text-align: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.header h1 
+{
+    padding: 5%;
+    width: 100%;
+}
+
+/* ITEM FORM */
+
+.item-form
+{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 5%;
+}
+
+.item-form input 
+{
+    margin-right: 5px;
+}
+
+/* ITEM */
+
+.ul-container
+{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.strikeout {
+    text-decoration: line-through;
+}
+.priority {
+    color: orange;
+}
